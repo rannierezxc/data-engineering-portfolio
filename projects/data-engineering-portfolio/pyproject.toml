@@ -8,7 +8,9 @@ authors = [
 ]
 requires-python = ">=3.12"
 dependencies = [
+    "pydantic>=2.14.3",
     "requests>=2.34.2",
+    "tenacity>=9.2.1",
 ]
 
 [project.scripts]
@@ -22,7 +24,22 @@ build-backend = "uv_build"
 dev = [
     "mypy>=2.4.1",
     "pytest>=9.2.0",
+    "responses>=0.26.3",
     "ruff>=0.17.4",
+    "types-requests>=2.33.0.20261030",
 ]
 [tool.pytest.ini_options]
 pythonpath = ["."]
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP"]
+
+[tool.mypy]
+python_version = "3.12"
+strict= true
+exclue = ["tests/"]
+
