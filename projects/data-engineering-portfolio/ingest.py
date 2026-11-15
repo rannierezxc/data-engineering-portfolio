@@ -6,9 +6,7 @@ from pathlib import Path
 
 import requests
 
-logging.basicConfig(
-    level=logging.INFO, format="%(asctime)s | %(levelname)s | %(message)s"
-)
+logging.basicConfig(level=logging.INFO, format="%(asctime)s | %(levelname)s | %(message)s")
 logger = logging.getLogger(__name__)
 
 API_URL = "https://api.open-meteo.com/v1/forecast"
@@ -41,4 +39,4 @@ if __name__ == "__main__":
         save_json(fetch_weather())
     except requests.RequestException:
         logger.exception("Failed to fetch weather data")
-        raise SystemExit(1)
+        raise SystemExit(1) from None
