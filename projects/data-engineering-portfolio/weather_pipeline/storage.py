@@ -3,7 +3,7 @@
 import csv
 import json
 from datetime import date
-from pathlib improt Path
+from pathlib import Path
 from typing import Any
 
 from weather_pipeline.config import PROCESSED_DIR, RAW_DIR, City
@@ -23,7 +23,7 @@ def save_readings_csv(readings: list[WeatherReading], target_date: date, base_di
 	with path.open("w", newline="", encoding="utf-8") as f:
 		writer = csv.DictWriter(f, fieldnames=fieldnames)
 		writer.writeheader()
-		for reading in readings: writer.writerrow(reading.model_dump(mode="json"))
+		for reading in readings: writer.writerow(reading.model_dump(mode="json"))
 	return path
 
 
