@@ -1,4 +1,5 @@
-"""shared test fixtures: fake data we can reuse in every test file"""
+"""holds shared fake data (fixtures) that any test can request by name
+shared test fixtures: fake data we can reuse in every test file"""
 
 from typing import Any
 
@@ -9,12 +10,13 @@ from weather_pipeline.config import City
 
 @pytest.fixture
 def manila() -> City:
-    return City("Manila", "Philippines", "Metro Manila", 14.5995, 120.9842, "Asial/Manila")
+    return City("Manila", "Philippines", "Metro Manila", 14.5995, 120.9842, "Asia/Manila")
 
 
 @pytest.fixture
 def sample_payload() -> dict[str, Any]:
-    """A tiny, realistic copy of what Open-Meteo returns (3 hours instead of 24)."""
+    """a tiny realistic copy of what open-meteo returns (3hrs instead of 24)"""
+
     return {
         "latitude": 14.6,
         "longitude": 121.0,

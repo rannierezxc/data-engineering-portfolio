@@ -44,4 +44,8 @@ def test_csv_has_header_and_rows(tmp_path, manila, sample_payload):
         rows = list(csv.DictReader(f))
     assert len(rows) == 3
     assert rows[0]["city"] == "Manila"
+
     assert rows[2]["temperature_c"] == ""  # None is written as an empty cell
+
+
+#  tmp_path is a built-in pytest fixture giving each test a fresh temporary folder, which is deleted afterwards. Tests never touch your real data/ folder.

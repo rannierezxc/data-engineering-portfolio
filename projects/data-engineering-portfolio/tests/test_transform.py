@@ -4,7 +4,7 @@ from weather_pipeline.models import WeatherResponse
 from weather_pipeline.transform import to_readings
 
 
-def test_one_reading_per_hour(manila, sample_payload):
+def test_one_reading_per_hours(manila, sample_payload):
     readings = to_readings(manila, WeatherResponse.model_validate(sample_payload))
 
     assert len(readings) == 3

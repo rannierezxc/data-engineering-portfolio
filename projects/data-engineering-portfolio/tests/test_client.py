@@ -1,4 +1,8 @@
-"""Network tests WITHOUT the network: the `responses` library fakes the API."""
+"""
+tests the network code without the network.
+the 'responses' library fakes the api
+
+"""
 
 from datetime import date
 
@@ -12,7 +16,7 @@ from weather_pipeline.config import API_URL
 
 TARGET_DATE = date(2026, 11, 10)
 
-# Same function, but without the real sleep between retries, so tests stay fast.
+# same function, but without the real sleep between retries, so tests stay fast
 fast_fetch = fetch_raw_weather.retry_with(wait=wait_none())
 
 
@@ -36,7 +40,7 @@ def test_retries_on_server_error_then_succeeds(manila, sample_payload):
 
     result = fast_fetch(manila, TARGET_DATE)
 
-    assert len(responses.calls) == 3  # failed twice, succeeded on the 3rd try
+    assert len(responses.calls) == 3  # failed twice, succeedd on the 3rd try
     assert result["latitude"] == 14.6
 
 
@@ -55,4 +59,9 @@ def test_does_not_retry_client_errors(manila):
 
     with pytest.raises(requests.HTTPError):
         fast_fetch(manila, TARGET_DATE)
-    assert len(responses.calls) == 1  # 400 = our fault, retrying won't help
+    assert len(responses.calls) == 1  # 400 = our fault, retrying wont help
+
+
+#      @responses.activate intercepts every requests call inside the test and returns the fake responses you registered, in order. Thats how we simulate 503 503 and 200.
+
+#      retry_with(wait=wait_none()) makes a copy of our function with no waiting, so the retry tests take milliseconds isntead of 30 secs
