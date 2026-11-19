@@ -31,3 +31,17 @@ def save_readings_csv(
         for reading in readings:
             writer.writerow(reading.model_dump(mode="json"))
     return path
+
+
+def read_readings_csv(target_date: date, base_dir: Path = PROCESSED_DIR) -> list[WeatherReading]:
+	""" read a processed csv back into validated readings. empty cells become none"""
+	path = base_dir / f"weather_{target_date.isoformat()}.csv"
+	if not path.exists():
+		return []
+	with path.open(newline="", encoding="utf-8") as f:
+		return [
+			WeatherReading.model_validate({k: (v if v != "" else None) for k, v in row.items()})
+			for row in csv.DictReader(f)
+		]
+
+
