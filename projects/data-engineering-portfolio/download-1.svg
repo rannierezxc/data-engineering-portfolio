@@ -1,0 +1,141 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 697.098 614" width="697.098" height="614" style="--bg:#18181B;--fg:#F4F4F5;--line:#71717A;--muted:#A1A1AA;--surface:#27272A;--border:#3F3F46;background:var(--bg)">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&amp;display=swap');
+  text { font-family: 'Inter', system-ui, sans-serif; }
+  .mono { font-family: 'JetBrains Mono', 'SF Mono', 'Fira Code', ui-monospace, monospace; }
+  svg {
+    /* Derived from --bg and --fg (overridable via --line, --accent, etc.) */
+    --_text:          var(--fg);
+    --_text-sec:      var(--muted, color-mix(in srgb, var(--fg) 60%, var(--bg)));
+    --_text-muted:    var(--muted, color-mix(in srgb, var(--fg) 40%, var(--bg)));
+    --_text-faint:    color-mix(in srgb, var(--fg) 25%, var(--bg));
+    --_line:          var(--line, color-mix(in srgb, var(--fg) 50%, var(--bg)));
+    --_arrow:         var(--accent, color-mix(in srgb, var(--fg) 85%, var(--bg)));
+    --_node-fill:     var(--surface, color-mix(in srgb, var(--fg) 3%, var(--bg)));
+    --_node-stroke:   var(--border, color-mix(in srgb, var(--fg) 20%, var(--bg)));
+    --_group-fill:    var(--bg);
+    --_group-hdr:     color-mix(in srgb, var(--fg) 5%, var(--bg));
+    --_inner-stroke:  color-mix(in srgb, var(--fg) 12%, var(--bg));
+    --_key-badge:     color-mix(in srgb, var(--fg) 10%, var(--bg));
+  }
+</style>
+<defs>
+</defs>
+<polyline class="er-relationship" data-entity1="dim_location" data-entity2="fact_weather_readings" data-cardinality1="one" data-cardinality2="zero-many" data-identifying="true" data-label="location_sk" points="219.79999999999998,447 384.09799999999996,447 384.09799999999996,215 464.09799999999996,215" fill="none" stroke="var(--_line)" stroke-width="1" />
+<polyline class="er-relationship" data-entity1="dim_date" data-entity2="fact_weather_readings" data-cardinality1="one" data-cardinality2="zero-many" data-identifying="true" data-label="date_key" points="219.79999999999998,145 464.09799999999996,145" fill="none" stroke="var(--_line)" stroke-width="1" />
+<g class="entity" data-id="dim_location" data-label="dim_location">
+  <rect x="40" y="320" width="179.79999999999998" height="254" rx="0" ry="0" fill="var(--_node-fill)" stroke="var(--_node-stroke)" stroke-width="1" />
+  <rect x="40" y="320" width="179.79999999999998" height="34" rx="0" ry="0" fill="var(--_group-hdr)" stroke="var(--_node-stroke)" stroke-width="1" />
+  <text x="129.89999999999998" y="337" text-anchor="middle" font-size="13" font-weight="700" fill="var(--_text)" dy="4.55">dim_location</text>
+  <line x1="40" y1="354" x2="219.79999999999998" y2="354" stroke="var(--_node-stroke)" stroke-width="0.75" />
+  <g><title>surrogate key</title>
+  <rect x="46" y="358" width="22.31" height="14" rx="2" ry="2" fill="var(--_key-badge)" />
+  <text x="57.155" y="365" text-anchor="middle" dy="0.35em" font-size="9" font-weight="600" fill="var(--_text-sec)">PK</text>
+  <text x="76.31" y="365" class="mono" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-muted)">bigint</tspan></text>
+  <text x="211.79999999999998" y="365" class="mono" text-anchor="end" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-sec)">location_sk</tspan></text>
+  </g>
+  <g><title>natural key</title>
+  <text x="48" y="387" class="mono" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-muted)">text</tspan></text>
+  <text x="211.79999999999998" y="387" class="mono" text-anchor="end" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-sec)">city</tspan></text>
+  </g>
+  <text x="48" y="409" class="mono" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-muted)">text</tspan></text>
+  <text x="211.79999999999998" y="409" class="mono" text-anchor="end" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-sec)">country</tspan></text>
+  <text x="48" y="431" class="mono" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-muted)">text</tspan></text>
+  <text x="211.79999999999998" y="431" class="mono" text-anchor="end" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-sec)">region</tspan></text>
+  <text x="48" y="453" class="mono" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-muted)">float</tspan></text>
+  <text x="211.79999999999998" y="453" class="mono" text-anchor="end" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-sec)">latitude</tspan></text>
+  <text x="48" y="475" class="mono" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-muted)">float</tspan></text>
+  <text x="211.79999999999998" y="475" class="mono" text-anchor="end" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-sec)">longitude</tspan></text>
+  <text x="48" y="497" class="mono" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-muted)">text</tspan></text>
+  <text x="211.79999999999998" y="497" class="mono" text-anchor="end" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-sec)">timezone</tspan></text>
+  <g><title>SCD2</title>
+  <text x="48" y="519" class="mono" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-muted)">timestamptz</tspan></text>
+  <text x="211.79999999999998" y="519" class="mono" text-anchor="end" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-sec)">valid_from</tspan></text>
+  </g>
+  <g><title>SCD2</title>
+  <text x="48" y="541" class="mono" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-muted)">timestamptz</tspan></text>
+  <text x="211.79999999999998" y="541" class="mono" text-anchor="end" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-sec)">valid_to</tspan></text>
+  </g>
+  <g><title>SCD2</title>
+  <text x="48" y="563" class="mono" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-muted)">boolean</tspan></text>
+  <text x="211.79999999999998" y="563" class="mono" text-anchor="end" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-sec)">is_current</tspan></text>
+  </g>
+</g>
+<g class="entity" data-id="fact_weather_readings" data-label="fact_weather_readings">
+  <rect x="464.09799999999996" y="75" width="193" height="210" rx="0" ry="0" fill="var(--_node-fill)" stroke="var(--_node-stroke)" stroke-width="1" />
+  <rect x="464.09799999999996" y="75" width="193" height="34" rx="0" ry="0" fill="var(--_group-hdr)" stroke="var(--_node-stroke)" stroke-width="1" />
+  <text x="560.598" y="92" text-anchor="middle" font-size="13" font-weight="700" fill="var(--_text)" dy="4.55">fact_weather_readings</text>
+  <line x1="464.09799999999996" y1="109" x2="657.098" y2="109" stroke="var(--_node-stroke)" stroke-width="0.75" />
+  <rect x="470.09799999999996" y="113" width="22.31" height="14" rx="2" ry="2" fill="var(--_key-badge)" />
+  <text x="481.25299999999993" y="120" text-anchor="middle" dy="0.35em" font-size="9" font-weight="600" fill="var(--_text-sec)">FK</text>
+  <text x="500.40799999999996" y="120" class="mono" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-muted)">bigint</tspan></text>
+  <text x="649.098" y="120" class="mono" text-anchor="end" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-sec)">location_sk</tspan></text>
+  <rect x="470.09799999999996" y="135" width="22.31" height="14" rx="2" ry="2" fill="var(--_key-badge)" />
+  <text x="481.25299999999993" y="142" text-anchor="middle" dy="0.35em" font-size="9" font-weight="600" fill="var(--_text-sec)">FK</text>
+  <text x="500.40799999999996" y="142" class="mono" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-muted)">int</tspan></text>
+  <text x="649.098" y="142" class="mono" text-anchor="end" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-sec)">date_key</tspan></text>
+  <text x="472.09799999999996" y="164" class="mono" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-muted)">timestamptz</tspan></text>
+  <text x="649.098" y="164" class="mono" text-anchor="end" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-sec)">reading_time</tspan></text>
+  <text x="472.09799999999996" y="186" class="mono" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-muted)">smallint</tspan></text>
+  <text x="649.098" y="186" class="mono" text-anchor="end" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-sec)">hour_of_day</tspan></text>
+  <g><title>non-additive</title>
+  <text x="472.09799999999996" y="208" class="mono" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-muted)">numeric</tspan></text>
+  <text x="649.098" y="208" class="mono" text-anchor="end" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-sec)">temperature_c</tspan></text>
+  </g>
+  <g><title>non-additive</title>
+  <text x="472.09799999999996" y="230" class="mono" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-muted)">numeric</tspan></text>
+  <text x="649.098" y="230" class="mono" text-anchor="end" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-sec)">humidity_pct</tspan></text>
+  </g>
+  <g><title>additive</title>
+  <text x="472.09799999999996" y="252" class="mono" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-muted)">numeric</tspan></text>
+  <text x="649.098" y="252" class="mono" text-anchor="end" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-sec)">precipitation_mm</tspan></text>
+  </g>
+  <g><title>non-additive</title>
+  <text x="472.09799999999996" y="274" class="mono" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-muted)">numeric</tspan></text>
+  <text x="649.098" y="274" class="mono" text-anchor="end" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-sec)">wind_speed_kmh</tspan></text>
+  </g>
+</g>
+<g class="entity" data-id="dim_date" data-label="dim_date">
+  <rect x="66.4" y="40" width="153.39999999999998" height="210" rx="0" ry="0" fill="var(--_node-fill)" stroke="var(--_node-stroke)" stroke-width="1" />
+  <rect x="66.4" y="40" width="153.39999999999998" height="34" rx="0" ry="0" fill="var(--_group-hdr)" stroke="var(--_node-stroke)" stroke-width="1" />
+  <text x="143.1" y="57" text-anchor="middle" font-size="13" font-weight="700" fill="var(--_text)" dy="4.55">dim_date</text>
+  <line x1="66.4" y1="74" x2="219.79999999999998" y2="74" stroke="var(--_node-stroke)" stroke-width="0.75" />
+  <g><title>e.g. 20261109</title>
+  <rect x="72.4" y="78" width="22.31" height="14" rx="2" ry="2" fill="var(--_key-badge)" />
+  <text x="83.555" y="85" text-anchor="middle" dy="0.35em" font-size="9" font-weight="600" fill="var(--_text-sec)">PK</text>
+  <text x="102.71000000000001" y="85" class="mono" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-muted)">int</tspan></text>
+  <text x="211.79999999999998" y="85" class="mono" text-anchor="end" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-sec)">date_key</tspan></text>
+  </g>
+  <text x="74.4" y="107" class="mono" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-muted)">date</tspan></text>
+  <text x="211.79999999999998" y="107" class="mono" text-anchor="end" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-sec)">full_date</tspan></text>
+  <text x="74.4" y="129" class="mono" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-muted)">smallint</tspan></text>
+  <text x="211.79999999999998" y="129" class="mono" text-anchor="end" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-sec)">year</tspan></text>
+  <text x="74.4" y="151" class="mono" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-muted)">smallint</tspan></text>
+  <text x="211.79999999999998" y="151" class="mono" text-anchor="end" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-sec)">quarter</tspan></text>
+  <text x="74.4" y="173" class="mono" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-muted)">smallint</tspan></text>
+  <text x="211.79999999999998" y="173" class="mono" text-anchor="end" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-sec)">month</tspan></text>
+  <text x="74.4" y="195" class="mono" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-muted)">text</tspan></text>
+  <text x="211.79999999999998" y="195" class="mono" text-anchor="end" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-sec)">month_name</tspan></text>
+  <text x="74.4" y="217" class="mono" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-muted)">text</tspan></text>
+  <text x="211.79999999999998" y="217" class="mono" text-anchor="end" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-sec)">day_name</tspan></text>
+  <text x="74.4" y="239" class="mono" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-muted)">boolean</tspan></text>
+  <text x="211.79999999999998" y="239" class="mono" text-anchor="end" dy="0.35em" font-size="11" font-weight="400"><tspan fill="var(--_text-sec)">is_weekend</tspan></text>
+</g>
+<line x1="223.79999999999998" y1="441" x2="223.79999999999998" y2="453" stroke="var(--_line)" stroke-width="1.25" />
+<line x1="227.79999999999998" y1="441" x2="227.79999999999998" y2="453" stroke="var(--_line)" stroke-width="1.25" />
+<line x1="460.09799999999996" y1="222" x2="448.09799999999996" y2="215" stroke="var(--_line)" stroke-width="1.25" />
+<line x1="460.09799999999996" y1="215" x2="448.09799999999996" y2="215" stroke="var(--_line)" stroke-width="1.25" />
+<line x1="460.09799999999996" y1="208" x2="448.09799999999996" y2="215" stroke="var(--_line)" stroke-width="1.25" />
+<circle cx="444.09799999999996" cy="215" r="4" fill="var(--bg)" stroke="var(--_line)" stroke-width="1.25" />
+<line x1="223.79999999999998" y1="139" x2="223.79999999999998" y2="151" stroke="var(--_line)" stroke-width="1.25" />
+<line x1="227.79999999999998" y1="139" x2="227.79999999999998" y2="151" stroke="var(--_line)" stroke-width="1.25" />
+<line x1="460.09799999999996" y1="152" x2="448.09799999999996" y2="145" stroke="var(--_line)" stroke-width="1.25" />
+<line x1="460.09799999999996" y1="145" x2="448.09799999999996" y2="145" stroke="var(--_line)" stroke-width="1.25" />
+<line x1="460.09799999999996" y1="138" x2="448.09799999999996" y2="145" stroke="var(--_line)" stroke-width="1.25" />
+<circle cx="444.09799999999996" cy="145" r="4" fill="var(--bg)" stroke="var(--_line)" stroke-width="1.25" />
+<rect x="351.94899999999996" y="362.999" width="64.298" height="20.3" rx="2" ry="2" fill="var(--bg)" stroke="var(--_inner-stroke)" stroke-width="0.5" />
+<text x="384.09799999999996" y="373.149" text-anchor="middle" font-size="11" font-weight="400" fill="var(--_text-muted)" dy="3.8499999999999996">location_sk</text>
+<rect x="315.14599999999996" y="134.85" width="53.606" height="20.3" rx="2" ry="2" fill="var(--bg)" stroke="var(--_inner-stroke)" stroke-width="0.5" />
+<text x="341.94899999999996" y="145" text-anchor="middle" font-size="11" font-weight="400" fill="var(--_text-muted)" dy="3.8499999999999996">date_key</text>
+</svg>
