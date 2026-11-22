@@ -6,7 +6,7 @@ import pytest
 
 from weather_pipeline.main import dates_to_process, parse_args
 from weather_pipeline.models import WeatherResponse
-from weather_pipeline.storage import save_raw_json, save_readings_csv
+from weather_pipeline.storage import save_raw_json, save_readings_csv, read_readings_csv
 from weather_pipeline.transform import to_readings
 
 
@@ -49,3 +49,10 @@ def test_csv_has_header_and_rows(tmp_path, manila, sample_payload):
 
 
 #  tmp_path is a built-in pytest fixture giving each test a fresh temporary folder, which is deleted afterwards. Tests never touch your real data/ folder.
+
+def test_csv_round_trip(tmp_path, manila, sample_payload):
+	readings = to_readings(manila, WeatherResponse.model_validate(sample_payload))
+	save_readings_csv(readings, date(2026, 11, 10), base_dir=tmp_path)
+	
+	assert read_readings_csv(date(2026,11,10), base_dir=tmp_path) == readings
+	assert read_readings_csv(date(2026, 1,1), base_dir=tmp_path)== [] #missing file
