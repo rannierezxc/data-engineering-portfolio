@@ -25,3 +25,9 @@ uv run pytest
 ![alt text](download.svg)
 
 ![alt text](download-1.svg)
+
+
+## Phase 3: Docker Lake
+"I containerized the pipeline with a multi-stage Dockerfile using uv, running as a non-root user, with dependency layers ordered for build caching. Docker Compose runs PostgreSQL, MinIO as S3-compatible object storage, and the pipeline as an on-demand job that waits on healthchecks. The pipeline writes a medallion-style lake: raw API JSON in a bronze layer, and validated data as Parquet with an explicit Arrow schema in a silver layer, Hive-partitioned by date and city. Writes use partition overwrite, so backfills are idempotent. The warehouse load reads from the lake, not the API, so stages are decoupled and the warehouse can be rebuilt at any time. For ad-hoc analysis I query the Parquet directly from S3 with DuckDB. Lake tests run against PyArrow's local filesystem, so they need no external services in CI."
+
+
