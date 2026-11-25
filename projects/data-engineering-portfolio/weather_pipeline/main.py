@@ -8,19 +8,24 @@ Examples:
 
 import argparse
 import logging
+from collections.abc import Callable
 from datetime import UTC, date, datetime, timedelta
+from typing import Any
 
 import requests
 from pydantic import ValidationError
 
 from weather_pipeline.client import fetch_raw_weather
-from weather_pipeline.config import CITIES
+from weather_pipeline.config import CITIES, City
 from weather_pipeline.logging_config import setup_logging
 from weather_pipeline.models import WeatherReading, WeatherResponse
-from weather_pipeline.storage import save_readings_csv
+from weather_pipeline.storage import save_raw_json, save_readings_csv
 from weather_pipeline.transform import to_readings
 
 logger = logging.getLogger(__name__)
+
+# "Any function that takes (payload, city, date) and saves it somewhere"
+SaveRawFn = Callable[[dict[str, Any], City, date], object]
 
 
 def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
@@ -44,13 +49,19 @@ def dates_to_process(args: argparse.Namespace) -> list[date]:
     return [datetime.now(UTC).date() - timedelta(days=1)]
 
 
-def extract_day(target_date: date) -> tuple[list[WeatherReading], list[str]]:
-    """fetch, save raw, validate, and flatten every city. Returns (readings, failed_cities)"""
+def extract_day(
+    target_date: date, save_raw: SaveRawFn = save_raw_json
+) -> tuple[list[WeatherReading], list[str]]:
+    """fetch, save raw, validate, and flatten every city. Returns (readings, failed_cities)
+
+    'save_raw' decides where raw json goes: local disk by default, the data lake in phase3.
+    """
     readings: list[WeatherReading] = []
     failed: list[str] = []
     for city in CITIES:
         try:
             raw = fetch_raw_weather(city, target_date)  # keep the evidence before validating
+            save_raw(raw, city, target_date)  # keep the evidence before validating
             parsed = WeatherResponse.model_validate(raw)
             readings.extend(to_readings(city, parsed))
 

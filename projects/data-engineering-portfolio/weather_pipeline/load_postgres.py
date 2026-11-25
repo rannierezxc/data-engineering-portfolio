@@ -1,8 +1,8 @@
-""" phase2: load the processed CSV files into the postgreSQL star schema.
+"""phase2: load the processed CSV files into the postgreSQL star schema.
 
 Ex:
-	uv run python -m weather_pipeline.load_postgres --date 2026-11-09
-	uv run python -m weather_pipeline.load_postgres --start 2026-10-01 --end 2026-10-31
+        uv run python -m weather_pipeline.load_postgres --date 2026-11-09
+        uv run python -m weather_pipeline.load_postgres --start 2026-10-01 --end 2026-10-31
 """
 
 import logging
@@ -62,66 +62,70 @@ where (r.reading_time at time zone 'utc')::date = %(target_date)s
 
 
 def run_sql_file(conn: psycopg.Connection, filename: str) -> None:
-	"""run every statement in a .sql file (allowed because we pass no parameters)"""
-	conn.execute((SQL_DIR / filename).read_text(encoding="utf-8"))
+    """run every statement in a .sql file (allowed because we pass no parameters)"""
+    conn.execute((SQL_DIR / filename).read_text(encoding="utf-8"))
+
 
 def apply_schema(conn: psycopg.Connection) -> None:
-	with conn.transaction():
-		run_sql_file(conn, "01_schema.sql")
-		run_sql_file(conn, "02_dim_date.sql")
+    with conn.transaction():
+        run_sql_file(conn, "01_schema.sql")
+        run_sql_file(conn, "02_dim_date.sql")
+
 
 def sync_dim_location(conn: psycopg.Connection, cities: list[City]) -> None:
-	"""copy today's city list into a temp table, then apply the SCD type2 merge"""
-	with conn.transaction():
-		conn.execute(
-			"""
+    """copy today's city list into a temp table, then apply the SCD type2 merge"""
+    with conn.transaction():
+        conn.execute(
+            """
 			CREATE temp table stg_location (
 				city TEXT, country TEXT, region text, latitude double precision, longitude double precision,
 				timezone TEXT ) on commit drop """
-		)
-		with conn.cursor() as cur:
-			cur.executemany(
-			"insert into stg_location values (%s, %s, %s, %s, %s, %s)",
-			[ (c.name, c.country, c.region, c.latitude, c.longitude, c.timezone)
-				for c in cities
-			],
-		)
-		run_sql_file(conn, "03_scd2_dim_location.sql")
+        )
+        with conn.cursor() as cur:
+            cur.executemany(
+                "insert into stg_location values (%s, %s, %s, %s, %s, %s)",
+                [
+                    (c.name, c.country, c.region, c.latitude, c.longitude, c.timezone)
+                    for c in cities
+                ],
+            )
+        run_sql_file(conn, "03_scd2_dim_location.sql")
 
 
 def load_raw_readings(conn: psycopg.Connection, readings: list[WeatherReading]) -> int:
-	with conn.transaction(), conn.cursor() as cur:
-		cur.executemany(UPSERT_RAW_SQL, [r.model_dump() for r in readings])
-	return len(readings)
+    with conn.transaction(), conn.cursor() as cur:
+        cur.executemany(UPSERT_RAW_SQL, [r.model_dump() for r in readings])
+    return len(readings)
 
 
 def load_fact_for_date(conn: psycopg.Connection, target_date: date) -> int:
-	""" delete-then-insert one day of facts inside one transaction (idempotent)"""
-	date_key = int(target_date.strftime("%Y%m%d"))
-	with conn.transaction():
-		conn.execute(DELETE_FACT_DAY_SQL, {"date_key": date_key})
-		cur = conn.execute(INSERT_FACT_DAY_SQL, {"target_date": target_date})
-		return cur.rowcount
+    """delete-then-insert one day of facts inside one transaction (idempotent)"""
+    date_key = int(target_date.strftime("%Y%m%d"))
+    with conn.transaction():
+        conn.execute(DELETE_FACT_DAY_SQL, {"date_key": date_key})
+        cur = conn.execute(INSERT_FACT_DAY_SQL, {"target_date": target_date})
+        return cur.rowcount
+
 
 def main(argv: list[str] | None = None) -> int:
-	setup_logging()
-	args = parse_args(argv)
-	settings = get_settings()
-	with psycopg.connect(settings.postgres_conninfo, autocommit=True) as conn:
-		apply_schema(conn)
-		sync_dim_location(conn, CITIES)
-		for target_date in dates_to_process(args):
-			readings = read_readings_csv(target_date)
-			if not readings:
-				logger.warning("%s: no processed CSV found, skipping", target_date)
-				continue
-			load_raw_readings(conn, readings)
-			fact_rows = load_fact_for_date(conn, target_date)
-			logger.info("%s: %d raw rows -> %d fact rows", target_date, len(readings), fact_rows)
-			if fact_rows != len(readings):
-				logger.warning("%s: row counts differ! check dim_location", target_date)
-	return 0
+    setup_logging()
+    args = parse_args(argv)
+    settings = get_settings()
+    with psycopg.connect(settings.postgres_conninfo, autocommit=True) as conn:
+        apply_schema(conn)
+        sync_dim_location(conn, CITIES)
+        for target_date in dates_to_process(args):
+            readings = read_readings_csv(target_date)
+            if not readings:
+                logger.warning("%s: no processed CSV found, skipping", target_date)
+                continue
+            load_raw_readings(conn, readings)
+            fact_rows = load_fact_for_date(conn, target_date)
+            logger.info("%s: %d raw rows -> %d fact rows", target_date, len(readings), fact_rows)
+            if fact_rows != len(readings):
+                logger.warning("%s: row counts differ! check dim_location", target_date)
+    return 0
+
 
 if __name__ == "__main__":
-	raise SystemExit(main())
-
+    raise SystemExit(main())
